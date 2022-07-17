@@ -1,4 +1,4 @@
-# hacking-documentation
+# Pentesting/Hacking documentation
 
 ## Intro
 
@@ -44,10 +44,10 @@ We can use `find` to lookup specific files. You can search using specific parame
 We can search through te content of files with the `grep` command.
 
 **Shell operators**
-| Symbol/Operator      | Description |
-| -------------------- | ----------- |
-| &                    | This operator allows you to run commands in the background of your terminal.       |
-| &&                   | This operator allows you to combine multiple commands together in one line of your terminal.        |
-| >                  | This operator is a redirector - meaning that we can take the output from a command (such as using cat to output a file) and direct it elsewhere.        |
-| >>                   | This operator does the same function of the `>` operator but appends the output rather than replacing (meaning nothing is overwritten).        |
+| Symbol/Operator | Description                                                                                                                                      |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| &               | This operator allows you to run commands in the background of your terminal.                                                                     |
+| &&              | This operator allows you to combine multiple commands together in one line of your terminal.                                                     |
+| >               | This operator is a redirector - meaning that we can take the output from a command (such as using cat to output a file) and direct it elsewhere. |
+| >>              | This operator does the same function of the `>` operator but appends the output rather than replacing (meaning nothing is overwritten).          |
 
