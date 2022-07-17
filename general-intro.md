@@ -145,10 +145,13 @@ Processes are the programs that are running on your machine. They are managed by
 ### Viewing Processes
 
 We can use the `ps` command to provide a list of the running processes as our user's session and some additional information such as its status code, the session that is running it, how much usage time of the CPU it is using, and the name of the acutal program or command that is being executed.
+
 ![picture of running processes](assets/ps1.png)
 
 To see the processes run by other users and those that don't run from a session (like system processes), we need to provide **aux** to the `ps` command like so: `ps aux`
+
 ![picture of the ps aux command](assets/ps2.png)
+
 Note we can see a total of 5 processes -- note how we now have "root"  and "cmnatic"
 
 Another very useful command is the ``top`` command; top gives you real-time statistics about the processes running on your system instead of a one-time view. These statistics will refresh every 10 seconds, but will also refresh when you use the arrow keys to browse the various rows.
